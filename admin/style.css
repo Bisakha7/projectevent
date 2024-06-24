@@ -1,0 +1,55 @@
+
+.card{
+  display:flex;
+  flex-direction: column;
+  justify-content: space-around;
+  padding:25px;
+  background-color: #ffffff;
+  box-sizing: border-box;
+  border: 1px solid #d2d2d3;
+  border-radius: 5px;
+  box-shadow: 0 6px 7px -4px rgba(0, 0, 0, 0.2);
+}
+.card:first-child{
+  border-left: 7px solid #246dec;
+}
+.card:nth-child(2){
+  border-left: 7px solid #f5b74f;
+}
+.card:nth-child(3){
+  border-left: 7px solid #6f1d1b;
+}
+.card:nth-child(4){
+  border-left: 7px solid #007200;
+}
+.card:nth-child(5){
+  border-left: 7px solid #f72585;
+}
+.card:nth-child(6){
+  border-left: 7px solid #c19ee0;
+}
+.card:nth-child(7){
+  border-left: 7px solid #171614;
+}
+
+.card-inner{
+  display:flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.card-inner > p{
+  font-size: 18px;
+  color:black;
+  font-weight: 500;
+}
+
+.quantity{
+  font-size: 18px;
+  color:black;
+  font-weight: 600;
+}
+
+
+
+
+
