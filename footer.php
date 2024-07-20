@@ -101,6 +101,7 @@ user_register.addEventListener('submit', function(e) {
   add_user();
 });
 
+
 function add_user() {
   let data = new FormData();
 
