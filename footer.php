@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<htm lang="en">
 
 <head>
   <meta charset="UTF-8">
@@ -61,21 +61,19 @@
     let bs_class = (type == 'success') ? 'alert-success' : 'alert-danger';
     let element = document.createElement('div');
     element.innerHTML = `
-    <div class="alert ${bs_class} alert-dismissible fade show " role="alert">
+      <div class="alert ${bs_class} alert-dismissible fade show " role="alert">
         <strong class="me-3">${msg}</strong> 
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
+      </div>
     `;
 
     if (position == 'body') {
       document.body.append(element);
       element.classList.add('custom-alert');
-
     } else {
       document.getElementById(position).appendChild(element);
     }
     setTimeout(remAlert, 2000);
-
   }
 
   function remAlert() {
@@ -94,108 +92,84 @@
         a_tag[i].classList.add('active');
       }
     }
-
   }
 
   let user_register = document.getElementById('user_register');
 
-  user_register.addEventListener('submit', function(e) {
-    e.preventDefault();
-    add_user();
-  });
+user_register.addEventListener('submit', function(e) {
+  e.preventDefault();
+  add_user();
+});
 
-  function add_user() {
-    let data = new FormData();
+function add_user() {
+  let data = new FormData();
 
-    data.append('username', user_register.elements['username'].value);
-    data.append('email', user_register.elements['email'].value);
-    data.append('password', user_register.elements['password'].value);
-    data.append('confirm_pass', user_register.elements['confirm_pass'].value);
-    data.append('phone', user_register.elements['phone'].value);
-    // data.append('photo', user_register.elements['photo'].files[0]);
-    data.append('address', user_register.elements['address'].value);
-    data.append('register', '');
+  data.append('username', user_register.elements['username'].value);
+  data.append('email', user_register.elements['email'].value);
+  data.append('password', user_register.elements['password'].value);
+  data.append('confirm_pass', user_register.elements['confirm_pass'].value);
+  data.append('phone', user_register.elements['phone'].value);
+  data.append('address', user_register.elements['address'].value);
+  data.append('register', '');
 
-    var myModal = document.getElementById('registermodal');
-    var modal = bootstrap.Modal.getInstance(myModal);
-    modal.hide();
+  let xhr = new XMLHttpRequest();
+  xhr.open('POST', 'ajax/login_register.php', true);
 
-    let xhr = new XMLHttpRequest();
-    xhr.open('POST', 'ajax/login_register.php', true);
-
-
-    xhr.onload = function() {
-      if (this.responseText == 'pass_mismatch') {
-        alert('error', "Passwords do not match");
-      } else if (this.responseText == 'email_already') {
-        alert('error', "Email already exists");
-      } else if (this.responseText == 'phone_already') {
-        alert('error', "Phone number already exists");
-      }
-      // else if (this.responseText == 'inv_img') {
-      //     alert('error',"Invalid photo format");
-      // } 
-      // else if (this.responseText == 'upd_failed') {
-      //     alert('error', "Uploading image failed");
-      // }
-      else if (this.responseText == 'ins_failed') {
-        alert('error', "Registration failed");
-      } else {
-        alert('success', "Registration Successful");
-        user_register.reset();
-      }
+  xhr.onload = function() {
+    if (this.responseText == 'pass_mismatch') {
+      alert('error', "Passwords do not match");
+    } else if (this.responseText == 'email_already') {
+      alert('error', "Email already exists");
+    } else if (this.responseText == 'phone_already') {
+      alert('error', "Phone number already exists");
+    } else if (this.responseText == 'ins_failed') {
+      alert('error', "Registration failed");
+    } else if (this.responseText == '1') {
+      alert('success', "Registration Successful");
+      user_register.reset();
+      var myModal = document.getElementById('registermodal');
+      var modal = bootstrap.Modal.getInstance(myModal);
+      modal.hide();
+    } else {
+      alert('error', "Unknown error occurred");
     }
-    xhr.send(data);
   }
+  xhr.send(data);
+}
 
+let login_form = document.getElementById('login_form');
+login_form.addEventListener('submit', function(e) {
+  e.preventDefault();
+  login_user();
+});
 
-  let login_form = document.getElementById('login_form');
-  login_form.addEventListener('submit', function(e) {
-    e.preventDefault();
-    login_user();
-  });
+function login_user() {
+  let data = new FormData();
 
-  function login_user() {
-    let data = new FormData();
+  data.append('email_mobile', login_form.elements['email_mobile'].value);
+  data.append('password', login_form.elements['password'].value);
+  data.append('login', '');
 
-    data.append('email_mobile', login_form.elements['email_mobile'].value);
-    data.append('password', login_form.elements['password'].value);
+  let xhr = new XMLHttpRequest();
+  xhr.open('POST', 'ajax/login_register.php', true);
 
-    data.append('login', '');
-
-    var myModal = document.getElementById('loginmodal');
-    var modal = bootstrap.Modal.getInstance(myModal);
-    modal.hide();
-
-    let xhr = new XMLHttpRequest();
-    xhr.open('POST', 'ajax/login_register.php', true);
-
-
-    xhr.onload = function() {
-      if (this.responseText == 'inv_email_mobile') {
-        alert('error', "Invalid email or mobile");
-      } else if (this.responseText == 'not_verified') {
-        alert('error', "Email is not verified");
-      } else if (this.responseText == 'inactive') {
-        alert('error', 'You are banned');
-      } else if (this.responseText == 'inv_pass') {
-        alert('error', 'Incorrect Password');
-      } else {
-        let page = window.location.href.split('/').pop().split('?').shift();
-        if (page == 'event_details.php') {
-          window.location = window.location.href;
-        } else {
-          window.location = window.location.pathname;
-
-        }
-
-      }
-
-
+  xhr.onload = function() {
+    if (this.responseText == 'inv_email_mobile') {
+      alert('error', "Invalid email or mobile");
+    } /*else if (this.responseText == 'not_verified') {
+      alert('error', "Email is not verified");}*/
+       else if (this.responseText == 'inactive') {
+      alert('error', 'Account is inactive');
+    } else if (this.responseText == 'inv_pass') {
+      alert('error', 'Incorrect Password');
+    } else if (this.responseText == '1') {
+      window.location = window.location.pathname;
+    } else {
+      alert('error', 'Unknown error occurred');
     }
-    xhr.send(data);
-
   }
+  xhr.send(data);
+}
 
   function checkLogin(status, event_id) {
     if (status) {
@@ -207,5 +181,7 @@
 
   setActive();
 </script>
+
+
 
 </html>
