@@ -116,61 +116,113 @@
   </div>
   <!-- loginmodal -->
 
-  <!-- registermodal -->
   <div class="modal fade" id="registermodal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg ">
-      <div class="modal-content">
-        <form id="user_register">
-          <div class="modal-header">
-            <h5 class="modal-title fs-2 ">
-              Create your account
-            </h5>
-            <button type="reset" class="btn-close shadow-none" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-            <span class="badge rounded-pill text-bg-light mb-3 text-wrap lh-base">
-              * fields are necessary to fill.
-            </span>
-            <div class="container-fluid">
-              <div class="row">
-                <div class="col-md-6 ps-0 mb-3">
-                  <label class="form-label">Username: * </label>
-                  <input name="username" type="text" id="username" class="form-control shadow-none" aria-describedby="emailHelp" required>
-                </div>
-                <div class="col-md-6 p-0 mb-3">
-                  <label class="form-label">Email: * </label>
-                  <input name="email" type="email" id="email" class="form-control shadow-none" aria-describedby="emailHelp" required>
-                  <span id="emailError" class="text-danger"></span>
-                </div>
-                <div class="col-md-6 ps-0 mb-3">
-                  <label class="form-label">Password: * </label>
-                  <input name="password" id="password" type="password" class="form-control shadow-none" aria-describedby="passwordHelp" required autocomplete="on" >
-                  <span id="passwordError" class="text-danger"></span>
-                </div>
-                <div class="col-md-6 p-0 mb-3">
-                  <label class="form-label">Confirm Password: * </label>
-                  <input name="confirm_pass" id="confirmPass" type="password" class="form-control shadow-none" aria-describedby="emailHelp" autocomplete="on" required>
-                  <span id="confirmPassError" class="text-danger"></span>
-                </div>
-                <div class="col-md-6 ps-0 mb-3">
-                  <label class="form-label">Phone: * </label>
-                  <input name="phone" id="phone" type="text" class="form-control shadow-none" aria-describedby="emailHelp" required>
-                  <span id="phoneError" class="text-danger"></span>
-                </div>
-                <div class="col-md-12 p-0 mb-3">
-                  <label class="form-label">Address: * </label>
-                  <textarea name="address" id="address" class="form-control shadow-none" rows="3" required></textarea>
-                  <span id="addressError" class="text-danger"></span>
-                </div>
+  <div class="modal-dialog modal-lg ">
+    <div class="modal-content">
+      <form id="user_register">
+        <div class="modal-header">
+          <h5 class="modal-title fs-2 ">
+            Create your account
+          </h5>
+          <button type="reset" class="btn-close shadow-none" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <span class="badge rounded-pill text-bg-light mb-3 text-wrap lh-base">
+            * fields are necessary to fill.
+          </span>
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-md-6 ps-0 mb-3">
+                <label class="form-label">Username: * </label>
+                <input name="username" type="text" id="username" class="form-control shadow-none" required>
+                <span id="usernameError" class="text-danger"></span>
+              </div>
+              <div class="col-md-6 p-0 mb-3">
+                <label class="form-label">Email: * </label>
+                <input name="email" type="email" id="email" class="form-control shadow-none" required>
+                <span id="emailError" class="text-danger"></span>
+              </div>
+              <div class="col-md-6 ps-0 mb-3">
+                <label class="form-label">Password: * </label>
+                <input name="password" id="password" type="password" class="form-control shadow-none" required autocomplete="on">
+                <span id="passwordError" class="text-danger"></span>
+              </div>
+              <div class="col-md-6 p-0 mb-3">
+                <label class="form-label">Confirm Password: * </label>
+                <input name="confirm_pass" id="confirmPass" type="password" class="form-control shadow-none" autocomplete="on" required>
+                <span id="confirmPassError" class="text-danger"></span>
+              </div>
+              <div class="col-md-6 ps-0 mb-3">
+                <label class="form-label">Phone: * </label>
+                <input name="phone" id="phone" type="text" class="form-control shadow-none" required>
+                <span id="phoneError" class="text-danger"></span>
+              </div>
+              <div class="col-md-12 p-0 mb-3">
+                <label class="form-label">Address: * </label>
+                <textarea name="address" id="address" class="form-control shadow-none" rows="3" required></textarea>
+                <span id="addressError" class="text-danger"></span>
               </div>
             </div>
-            <div>
-              <button type="submit" class="btn btn-dark shadow-none">Register</button>
-            </div>
-            <p class="mt-5 text-center">Already have account? <a href="#" class="text-decoration-none text-dark fw-bold" data-bs-toggle="modal" data-bs-target="#loginmodal">Login</a></p>
           </div>
-        </form>
-      </div>
+          <div>
+            <button type="submit" class="btn btn-dark shadow-none">Register</button>
+          </div>
+          <p class="mt-5 text-center">Already have account? <a href="#" class="text-decoration-none text-dark fw-bold" data-bs-toggle="modal" data-bs-target="#loginmodal">Login</a></p>
+        </div>
+      </form>
     </div>
   </div>
-  <!-- registermodal -->
+</div>
+
+<script>
+  const form = document.getElementById('user_register');
+  const fields = ['username', 'email', 'password', 'confirmPass', 'phone', 'address'];
+  
+  const validators = {
+    username: (value) => value.length >= 3 || 'Username must be at least 3 characters long',
+    email: (value) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value) || 'Invalid email format',
+    password: (value) => /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,12}$/.test(value) || 'Password must be 8-12 characters long and include at least one lowercase letter, one uppercase letter, and one number',
+    confirmPass: (value) => value === form.password.value || 'Passwords do not match',
+    phone: (value) => /^\d{10}$/.test(value) || 'Phone number must be 10 digits',
+    address: (value) => value.trim().length > 0 || 'Address is required'
+  };
+
+  fields.forEach(field => {
+    const input = form[field];
+    const errorSpan = document.getElementById(`${field}Error`);
+
+    input.addEventListener('input', function() {
+      const result = validators[field](this.value);
+      if (result !== true) {
+        errorSpan.textContent = result;
+      } else {
+        errorSpan.textContent = '';
+      }
+    });
+  });
+
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
+    let isValid = true;
+
+    fields.forEach(field => {
+      const input = form[field];
+      const errorSpan = document.getElementById(`${field}Error`);
+      const result = validators[field](input.value);
+
+      if (result !== true) {
+        errorSpan.textContent = result;
+        isValid = false;
+      } else {
+        errorSpan.textContent = '';
+      }
+    });
+
+    if (isValid) {
+      add_user();
+    }
+  });
+
+</script>
+</body>
+</html>
