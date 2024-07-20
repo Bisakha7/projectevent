@@ -40,7 +40,7 @@
       while ($row = mysqli_fetch_assoc($res)) {
         echo <<< data
                 <div class="col-lg-4 col-md-6 mb-5 px-4">
-                <div class=" bg-white rounded shadow border-top border-4 p-4 d-flex flex-column gap-2 service_box" >
+                <div class=" bg-white shadow border-top border-4 p-4 d-flex flex-column gap-2 service_box" >
                   <img src="$path$row[image]" alt="" width="250px">
                   <h5 class="m-0  text-center">$row[name]</h5>
                   <p class="m-0">$row[description]</p>
