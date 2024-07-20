@@ -47,9 +47,9 @@
           <li class="nav-item">
             <a class="nav-link me-2 " href="contact.php">Contact</a>
           </li>
-          <li class="nav-item">
+          <!-- <li class="nav-item">
             <a class="nav-link me-2 " href="about.php">About</a>
-          </li>
+          </li> -->
         </ul>
         <div class="d-flex" role="search">
           <?php
