@@ -3,21 +3,13 @@ require('../inc/essentials.php');
 require('../inc/db_config.php');
 adminLogin();
 
-
-
-
-
-
 if (isset($_POST['get_users'])) {
   $res = selectAll('user_register');
 
-
   $i = 1;
-
   $data = "";
 
   while ($row = mysqli_fetch_assoc($res)) {
-
     $del_btn = "<button type='button' onclick='delete_user($row[id])' class='btn btn-danger shadow-none'><i class='bi bi-trash'></i>";
 
     $verified = "<span class='badge bg-success '><i class='bi bi-x-lg'></i></span>";
@@ -51,8 +43,6 @@ if (isset($_POST['get_users'])) {
   echo $data;
 }
 
-
-
 if (isset($_POST['toggleStatus'])) {
   $frm_data = filtration($_POST);
 
@@ -65,9 +55,6 @@ if (isset($_POST['toggleStatus'])) {
   }
 }
 
-
-
-
 if(isset($_POST['delete_user'])){
   $frm_data = filtration($_POST);
 
@@ -79,9 +66,5 @@ if(isset($_POST['delete_user'])){
   else{
     echo 0;
   }
-
-
-
-
-  
 }
+
