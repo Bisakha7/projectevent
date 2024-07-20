@@ -109,6 +109,8 @@ function delete_booking(booking_id) {
 }
 
 
+
+
 function view_details(id) {
   let xhr = new XMLHttpRequest();
   xhr.open("POST", "ajax/bookings_crud.php", true);
@@ -119,15 +121,15 @@ function view_details(id) {
       try {
         let response = JSON.parse(this.responseText);
         if (response.error) {
-          alert('Error', response.error); // Display error message if present
+          alert('Error', response.error);
         } else {
-          displayBookingDetails(response); // Display booking details
+          displayBookingDetails(response);
         }
       } catch (e) {
-        alert('Error', 'Error parsing response'); // Handle parsing error
+        alert('Error', 'Error parsing response');
       }
     } else {
-      alert('Error', 'Failed to fetch booking details'); // Handle AJAX request failure
+      alert('Error', 'Failed to fetch booking details');
     }
   };
 
@@ -135,7 +137,6 @@ function view_details(id) {
 }
 
 function displayBookingDetails(booking) {
-  // Populate modal with booking details
   let modalBody = document.querySelector('#bookingDetailsModal .modal-body');
   let modalContent = `
     <p><strong>Booking ID:</strong> ${booking.id}</p>
@@ -148,10 +149,10 @@ function displayBookingDetails(booking) {
 
   modalBody.innerHTML = modalContent;
 
-  // Show the modal
   let bookingDetailsModal = new bootstrap.Modal(document.getElementById('bookingDetailsModal'));
   bookingDetailsModal.show();
 }
+
 
 
 
