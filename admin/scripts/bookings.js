@@ -92,8 +92,8 @@ function delete_booking(booking_id) {
     xhr.onload = function() {
       confirmModal.hide();
       if (this.responseText.trim() === '1') {
-        alert('success','Event has been removed');
-        get_event(); // Ensure get_events is correctly called to refresh the list
+        alert('success','booking has been removed');
+        get_bookings(); // Ensure get_events is correctly called to refresh the list
       } else {
         alert('error','Unable to remove event');
       }
