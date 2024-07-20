@@ -32,13 +32,13 @@ adminLogin();
       <h3 class="mb-5">Dashboard</h3>
       <div class="mb-3">
   
-  <select class="form-select" id="time_period" onchange="filterData(this.value)">
+  <!-- <select class="form-select" id="time_period">
     <option value="">Select Time Period:</option>
     <option value="last_30_days">Last 30 days</option>
     <option value="last_3_months">Last 3 months</option>
     <option value="last_6_months">Last 6 months</option>
     <option value="last_year">Last year</option>
-  </select>
+  </select> -->
 </div>
 
     </div>
