@@ -266,34 +266,44 @@ function thumbnail_image(img_id,event_id){
   
 }
 
-function del_event(event_id){
-  if(confirm("Are you sure you want to delete it?")){
-    let data = new FormData(); 
-  data.append('event_id', event_id); 
-  data.append('del_event', ''); 
-  let xhr = new XMLHttpRequest();
-  xhr.open("POST", "ajax/event_crud.php", true);
+function del_event(event_id) {
+  // Open the confirmation modal
+  let confirmModal = new bootstrap.Modal(document.getElementById('confirmModal'), {
+    backdrop: 'static',
+    keyboard: false
+  });
+  confirmModal.show();
 
-  xhr.onload = function() {
-   
+  // Set up the confirmation button
+  document.getElementById('confirmDeleteButton').onclick = function() {
+    let data = new FormData();
+    data.append('event_id', event_id);
+    data.append('del_event', '');
 
-    if (this.responseText == '1') {
-      alert('success', 'Event has been removed');
-      get_event();
-    }  else {
-      alert('error', 'Unable to remove event');
-     
+    let xhr = new XMLHttpRequest();
+    xhr.open("POST", "ajax/event_crud.php", true);
 
-    }
-  }
-  xhr.send(data);
+    xhr.onload = function() {
+      confirmModal.hide();
+      if (this.responseText.trim() === '1') {
+        alert('success','Event has been removed');
+        get_event(); // Ensure get_events is correctly called to refresh the list
+      } else {
+        alert('error','Unable to remove event');
+      }
+    };
 
-  }
- 
+    xhr.onerror = function() {
+      confirmModal.hide();
+      alert('An error occurred. Please try again.');
+    };
 
- 
-  
+    xhr.send(data);
+  };
 }
+
+
+
 
 
 

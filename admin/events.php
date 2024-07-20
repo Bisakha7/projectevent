@@ -25,11 +25,6 @@ adminLogin();
     <div class="row">
       <div class="col-lg-10 ms-auto p-3 overflow-hidden">
         <h3 class="mb-4">Events</h3>
-          <!-- Buttons for PDF and Excel -->
-          <div class="mb-3">
-          <button class="btn btn-primary" onclick="exportToPDF()">Export to PDF</button>
-          <button class="btn btn-success" onclick="exportToExcel()">Export to Excel</button>
-        </div>
 
         <div class="card border-0 shadow-sm mb-4">
           <div class="card-body">
@@ -85,7 +80,7 @@ adminLogin();
               </div>
               <div class=" col-md-6 mb-3">
                 <label class="form-label">Event Category: </label><br>
-                <select name='event_category' class="selectpicker show-tick" data-live-search="true" data-width="100%" data-size="4">
+                <select name='event_category' >
                   <option>Select Category</option>
                   <?php
                   $q = selectAll('categories');
@@ -235,12 +230,30 @@ adminLogin();
     </div>
   </div>
 
+
+  <!-- Confirmation Modal -->
+<div class="modal fade" id="confirmModal" tabindex="-1" aria-labelledby="confirmModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="confirmModalLabel">Confirm Your Decision</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Are you sure you want to delete this event?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+        <button id="confirmDeleteButton" type="button" class="btn btn-danger">Delete</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
   <?php
   require('inc/script.php');
   ?>
   <script src="scripts/events.js"></script>
-  <script src="scripts/table2excel.js"></script>
-  <script src="scripts/html2pdf.bundle.min.js"></script>
-  <script src="scripts/export.js"></script>
 </body>
 </html>
