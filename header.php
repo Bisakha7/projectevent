@@ -1,4 +1,4 @@
- <?php
+<?php
   require('admin/inc/db_config.php');
   require('admin/inc/essentials.php');
   session_start();
@@ -116,10 +116,10 @@
              </div>
              <div class="d-flex align-items-center justify-content-between">
                <button class="btn btn-dark shadow-none">Login</button>
-               <a href="javascript: void(0)" class="text-secondary text-decoration-none">Forgot Password?</a>
              </div>
              <div class="text-center">
-               <p class="mt-5">Do not have an account?<a href="" class="text-decoration-none text-dark fw-bold data-bs-toggle=" modal" data-bs-target="#registermodal"> Register</a></p>
+             <p class="mt-5">Do not have an account? <a href="#" class="text-decoration-none text-dark fw-bold" data-bs-toggle="modal" data-bs-target="#registermodal">Register</a></p>
+
              </div>
              
            </div>
@@ -188,6 +188,8 @@
              <div>
                <button type="submit" class="btn btn-dark shadow-none">Register</button>
              </div>
+             <p class="mt-5 text-center">Already have account? <a href="#" class="text-decoration-none text-dark fw-bold" data-bs-toggle="modal" data-bs-target="#loginmodal">Login</a></p>
+
 
            </div>
 
