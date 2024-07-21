@@ -1,32 +1,27 @@
-
-
-
-
-
-function get_bookings() {
-
+function get_bookings(dateRange = '') {
   let xhr = new XMLHttpRequest();
   xhr.open("POST", "ajax/bookings_crud.php", true);
   xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 
-
   xhr.onload = function() {
     document.getElementById('bookings_data').innerHTML = this.responseText;
   }
-  xhr.send('get_bookings');
+  xhr.send('get_bookings=1&dateRange=' + dateRange);
+}
 
+function filterBookingsByDate() {
+  let dateRange = document.getElementById('dateRangeFilter').value;
+  get_bookings(dateRange);
 }
 
 window.onload = function() {
   get_bookings();
 }
 
-
 function toggleStatus(id, val) {
   let xhr = new XMLHttpRequest();
   xhr.open("POST", "ajax/bookings_crud.php", true);
   xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-
 
   xhr.onload = function() {
     if (this.responseText == 1) {
@@ -37,50 +32,15 @@ function toggleStatus(id, val) {
     }
   }
   xhr.send('toggleStatus=' + id + '&value=' + val);
-
-
 }
 
-
-
-// function delete_booking(booking_id){
-//   if(confirm("Are you sure you want to delete booking?")){
-//     let data = new FormData(); 
-//   data.append('booking_id', booking_id); 
-//   data.append('delete_booking', ''); 
-//   let xhr = new XMLHttpRequest();
-//   xhr.open("POST", "ajax/bookings_crud.php", true);
-
-//   xhr.onload = function() {
-   
-
-//     if (this.responseText == '1') {
-//       alert('success', 'Booking has been removed');
-//       get_bookings();
-//     }  else {
-//       alert('error', 'Unable to remove booking');
-     
-
-//     }
-//   }
-//   xhr.send(data);
-
-//   }
- 
-
- 
-  
-// }
-
 function delete_booking(booking_id) {
-  // Open the confirmation modal
   let confirmModal = new bootstrap.Modal(document.getElementById('confirmModal'), {
     backdrop: 'static',
     keyboard: false
   });
   confirmModal.show();
 
-  // Set up the confirmation button
   document.getElementById('confirmDeleteButton').onclick = function() {
     let data = new FormData();
     data.append('booking_id', booking_id);
@@ -93,7 +53,7 @@ function delete_booking(booking_id) {
       confirmModal.hide();
       if (this.responseText.trim() === '1') {
         alert('success','booking has been removed');
-        get_bookings(); // Ensure get_events is correctly called to refresh the list
+        get_bookings();
       } else {
         alert('error','Unable to remove event');
       }
@@ -107,9 +67,6 @@ function delete_booking(booking_id) {
     xhr.send(data);
   };
 }
-
-
-
 
 function view_details(id) {
   let xhr = new XMLHttpRequest();
@@ -152,18 +109,3 @@ function displayBookingDetails(booking) {
   let bookingDetailsModal = new bootstrap.Modal(document.getElementById('bookingDetailsModal'));
   bookingDetailsModal.show();
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
