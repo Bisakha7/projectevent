@@ -25,14 +25,19 @@ function toggleStatus(id, val) {
 
   xhr.onload = function() {
     if (this.responseText == 1) {
-      alert('success', 'Booking is Confirmed');
+      if (val == 1) {
+        alert('success', 'Booking is Confirmed');
+      } else {
+        alert('success', 'Booking is set to Pending');
+      }
       get_bookings();
     } else {
-      alert('error', 'Booking is in pending');
+      alert('error', 'An error occurred while updating the booking status');
     }
   }
   xhr.send('toggleStatus=' + id + '&value=' + val);
 }
+
 
 function delete_booking(booking_id) {
   let confirmModal = new bootstrap.Modal(document.getElementById('confirmModal'), {
