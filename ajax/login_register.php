@@ -46,8 +46,7 @@ if(isset($_POST['login'])){
             echo 'inactive';
         } else {
             if(password_verify($data['password'], $user_fetch['password'])){
-                echo 'inv_pass';
- 
+                echo 'inv_pass'; 
             } else {
                 session_start();
                 $_SESSION['login'] = true;
@@ -55,6 +54,7 @@ if(isset($_POST['login'])){
                 $_SESSION['uname'] = $user_fetch['username'];
                 $_SESSION['phone'] = $user_fetch['phone'];
                 echo 1;
+                
             }
         }
     }
