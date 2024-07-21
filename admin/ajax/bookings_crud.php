@@ -4,10 +4,18 @@ require('../inc/db_config.php');
 adminLogin();
 
 if (isset($_POST['get_bookings'])) {
-  $res = selectAll('booking');
+  $dateRange = isset($_POST['dateRange']) ? (int) $_POST['dateRange'] : 0;
+
+  if ($dateRange > 0) {
+    $date_from = date('Y-m-d', strtotime("-$dateRange days"));
+    $q = "SELECT * FROM `booking` WHERE `booking_date` >= ?";
+    $values = [$date_from];
+    $res = select($q, $values, 's');
+  } else {
+    $res = selectAll('booking');
+  }
 
   $i = 1;
-
   $data = "";
 
   while ($row = mysqli_fetch_assoc($res)) {
@@ -16,7 +24,7 @@ if (isset($_POST['get_bookings'])) {
     
     $status = "<button onclick='toggleStatus($row[id],1)' class='btn btn-sm btn-danger shadow-none'>Pending</button>";
 
-    if($row['status']==1){
+    if($row['status'] == 1){
       $status = "<button onclick='toggleStatus($row[id],0)' class='btn btn-sm btn-success shadow-none'>Confirmed</button>";
     }
 
@@ -38,11 +46,11 @@ if (isset($_POST['get_bookings'])) {
 }
 
 if (isset($_POST['toggleStatus'])) {
-  $frm_data = filtration($_POST);
+  $frm_data = filteration($_POST);
 
   $q = "UPDATE `booking` SET `status`=? WHERE `id`=?";
-  $values = [$frm_data['value'], $frm_data['toggleStatus']];
-  if (update($q, $values, 'ii')) {
+  $v = [$frm_data['value'], $frm_data['toggleStatus']];
+  if (update($q, $v, 'ii')) {
     echo 1;
   } else {
     echo 0;
@@ -50,11 +58,11 @@ if (isset($_POST['toggleStatus'])) {
 }
 
 if (isset($_POST['delete_booking'])) {
-  $frm_data = filtration($_POST);
+  $frm_data = filteration($_POST);
 
-  $res = delete("DELETE FROM `booking` WHERE `id`=? AND `status`=?", [$frm_data['booking_id'], 0], 'ii');
-
-  if ($res) {
+  $q = "DELETE FROM `booking` WHERE `id`=?";
+  $v = [$frm_data['booking_id']];
+  if (delete($q, $v, 'i')) {
     echo 1;
   } else {
     echo 0;
@@ -62,15 +70,26 @@ if (isset($_POST['delete_booking'])) {
 }
 
 if (isset($_POST['view_details'])) {
-  $frm_data = filtration($_POST);
-  $q = "SELECT * FROM `booking` WHERE `id`=?";
-  $values = [$frm_data['view_details']];
-  $res = select($q, $values, 'i');
+  $frm_data = filteration($_POST);
 
-  if ($res) {
+  $q = "SELECT * FROM `booking` WHERE `id`=?";
+  $v = [$frm_data['view_details']];
+  $res = select($q, $v, 'i');
+
+  if (mysqli_num_rows($res) > 0) {
     $data = mysqli_fetch_assoc($res);
     echo json_encode($data);
   } else {
-    echo json_encode(['error' => 'Booking not found']);
+    echo json_encode(['error' => 'No booking found']);
   }
 }
+
+function filteration($data)
+{
+  foreach ($data as $key => $value) {
+    $data[$key] = trim(htmlspecialchars($value));
+  }
+  return $data;
+}
+
+
