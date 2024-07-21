@@ -12,36 +12,37 @@ if (isset($_POST['get_users'])) {
   while ($row = mysqli_fetch_assoc($res)) {
     $del_btn = "<button type='button' onclick='delete_user($row[id])' class='btn btn-danger shadow-none'><i class='bi bi-trash'></i>";
 
-    $verified = "<span class='badge bg-success '><i class='bi bi-x-lg'></i></span>";
-    if($row['is_verified']){
-      $verified = "<span class='badge bg-primary '><i class='bi bi-check-lg'></i></span>";
+    $verified = "<button onclick='toggleVerified($row[id], 1)' class='btn btn-sm btn-danger shadow-none'>Not Verified</button>";
+    if ($row['is_verified']) {
+      $verified = "<button onclick='toggleVerified($row[id], 0)' class='btn btn-sm btn-success shadow-none'>Verified</button>";
       $del_btn = '';
     }
 
     $status = "<button onclick='toggleStatus($row[id],0)' class='btn btn-sm btn-success shadow-none'>Active</button> ";
 
-    if($row['status']==0){
+    if ($row['status'] == 0) {
       $status = "<button onclick='toggleStatus($row[id],1)' class='btn btn-sm btn-danger shadow-none'>Inactive</button> ";
     }
 
-    $date = date("d-m-Y",strtotime($row['dateandtime']));
+    $date = date("d-m-Y", strtotime($row['dateandtime']));
     $data .= "
-       <tr>
-       <td>$i</td>
-       <td>$row[username]</td>
-       <td>$row[email]</td>
-       <td>$row[phone]</td>
-       <td>$row[address]</td>
-     
-       <td>$status</td> 
-       <td>$date</td> 
-       <td>$del_btn</td> 
-       </tr>
+      <tr>
+        <td>$i</td>
+        <td>$row[username]</td>
+        <td>$row[email]</td>
+        <td>$row[phone]</td>
+        <td>$row[address]</td>
+        <td>$verified</td> 
+        <td>$status</td>
+        <td>$date</td>
+        <td>$del_btn</td>
+      </tr>
     ";
     $i++;
   }
   echo $data;
 }
+
 
 if (isset($_POST['toggleStatus'])) {
   $frm_data = filtration($_POST);
@@ -64,6 +65,19 @@ if(isset($_POST['delete_user'])){
     echo 1;
   }
   else{
+    echo 0;
+  }
+}
+
+
+if (isset($_POST['toggleVerified'])) {
+  $frm_data = filtration($_POST);
+
+  $q = "UPDATE `user_register` SET `is_verified`=? where `id` = ?";
+  $values = [$frm_data['value'], $frm_data['toggleVerified']];
+  if (update($q, $values, 'ii')) {
+    echo 1;
+  } else {
     echo 0;
   }
 }
