@@ -38,23 +38,24 @@ adminLogin();
             
 
             <div class="table-responsive">
-              <table class="table table-hover table-bordered table-light"   id="myTable">
-                <thead>
-                  <tr class="table-secondary text-light align-middle">
-                    <th scope="col">ID</th>
-                    <th scope="col">Username</th>
-                    <th scope="col">Email</th>
-                    <th scope="col">Phone</th>
-                    <th scope="col">Address</th>
-                    <!-- <th scope="col">Verified</th> -->
-                    <th scope="col">Status</th>
-                    <th scope="col">Date</th>               
-                    <th scope="col">Action</th>
-                  </tr>
-                </thead>
-                <tbody id="users_data">
-                </tbody>
-              </table>
+            <table class="table table-hover table-bordered table-light" id="myTable">
+  <thead>
+    <tr class="table-secondary text-light align-middle">
+      <th scope="col">ID</th>
+      <th scope="col">Username</th>
+      <th scope="col">Email</th>
+      <th scope="col">Phone</th>
+      <th scope="col">Address</th>
+      <th scope="col">Verified</th>
+      <th scope="col">Status</th>
+      <th scope="col">Date</th>
+      <th scope="col">Action</th>
+    </tr>
+  </thead>
+  <tbody id="users_data">
+  </tbody>
+</table>
+
             </div>
 
           </div>
