@@ -92,6 +92,24 @@ function delete_user(user_id) {
   };
 }
 
+function toggleVerified(id, val) {
+  let xhr = new XMLHttpRequest();
+  xhr.open("POST", "ajax/users_crud.php", true);
+  xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+  xhr.onload = function() {
+    if (this.responseText == 1) {
+      alert('success', 'Verified status is changed');
+      get_users();
+    } else {
+      alert('error', 'Something went wrong');
+    }
+  };
+  xhr.send('toggleVerified=' + id + '&value=' + val);
+}
+
+
+
 
 
 
