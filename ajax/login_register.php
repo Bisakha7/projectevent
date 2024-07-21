@@ -1,8 +1,7 @@
 <?php
 require('../admin/inc/db_config.php');
 require('../admin/inc/essentials.php');
-?>
-<?php
+
 if(isset($_POST['register'])) {
     $data = filtration($_POST);
     
@@ -35,22 +34,20 @@ if(isset($_POST['register'])) {
 if(isset($_POST['login'])){
     $data = filtration($_POST);
 
-    $user_exists = select("SELECT * FROM `user_register` WHERE `email`=? OR `phone`=? LIMIT 1", [$data['email_mobile'], $data['email_mobile']], "ss");
+    $user_exists = select("SELECT * FROM user_register WHERE email=? OR phone=? LIMIT 1", [$data['email_mobile'], $data['email_mobile']], "ss");
 
     if(mysqli_num_rows($user_exists) == 0){
        echo 'inv_email_mobile';
-       exit;
     } else {
         $user_fetch = mysqli_fetch_assoc($user_exists);
-        /*if($user_fetch['is_verified'] == 0){
+        if($user_fetch['is_verified'] == 0){
             echo 'not_verified';
-        }*/  if($user_fetch['status'] == 0){
+        } else if($user_fetch['status'] == 0){
             echo 'inactive';
-            exit;
         } else {
             if(password_verify($data['password'], $user_fetch['password'])){
                 echo 'inv_pass';
-
+ 
             } else {
                 session_start();
                 $_SESSION['login'] = true;
@@ -62,4 +59,3 @@ if(isset($_POST['login'])){
         }
     }
 }
-?>
