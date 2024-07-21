@@ -125,6 +125,7 @@ function add_user() {
       alert('error', "Phone number already exists");
     } else if (this.responseText == 'ins_failed') {
       alert('error', "Registration failed");
+      
     } else if (this.responseText == '1') {
       alert('success', "Registration Successful");
       user_register.reset();
@@ -157,8 +158,8 @@ function login_user() {
   xhr.onload = function() {
     if (this.responseText == 'inv_email_mobile') {
       alert('error', "Invalid email or mobile");
-    } /*else if (this.responseText == 'not_verified') {
-      alert('error', "Email is not verified");}*/
+    } else if (this.responseText == 'not_verified') {
+      alert('error', "You are not verified");}
        else if (this.responseText == 'inactive') {
       alert('error', 'Account is inactive');
     } else if (this.responseText == 'inv_pass') {
