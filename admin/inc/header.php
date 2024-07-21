@@ -10,7 +10,8 @@
 
 <body>
   <div class="container-fluid bg-white text-dark px-3 py-1 d-flex align-items-center justify-content-between sticky-top">
-    <img src="../images/logo.png" alt="" width="250px" class="image-fluid">
+  <a class="navbar-brand me-5 fw-bold fs-3 " href="index.php">UPSCALE EVENTS</a>
+
     <a href="logout.php" class="btn btn-light btn-sm">Log Out</a>
   </div>
 
